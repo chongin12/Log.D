@@ -15,11 +15,8 @@ struct MonthListView: View {
     var body: some View {
         Group {
             if searchText.isEmpty {
-                List($year.months, id: \.self) { month in
-                    var monthValue: Month {
-                        month.wrappedValue
-                    }
-                    NavigationLink(monthValue.value.description + "월") {
+                List(year.months, id: \.self) { month in
+                    NavigationLink(month.value.description + "월") {
                         LogListView(month: month)
                     }
                 }
@@ -44,8 +41,10 @@ struct MonthListView: View {
         .fullScreenCover(isPresented: $isPresentingModal, onDismiss: {
 
         }, content: {
-            AddYearView()
-                .presentationBackground(.thinMaterial)
+            AddMonthView(year: year) { month in
+                self.year.months.append(month)
+            }
+            .presentationBackground(.thinMaterial)
         })
     }
 }

@@ -7,10 +7,26 @@
 
 import Foundation
 
-struct Log: Codable, Hashable {
+struct Log: Codable {
+//    var id: UUID
     var title: String
     var content: String
     var tags: Set<String>
+
+//    init(title: String, content: String, tags: Set<String>) {
+//        self.id = UUID()
+//        self.title = title
+//        self.content = content
+//        self.tags = tags
+//    }
+}
+
+extension Log: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.title)
+        hasher.combine(self.content)
+        hasher.combine(self.tags)
+    }
 }
 
 extension Array where Element == Log {

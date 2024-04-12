@@ -43,7 +43,6 @@ struct YearListView: View {
     @ViewBuilder
     private func YearListView() -> some View {
         List(years) { year in
-//            @Bindable var year = year
             NavigationLink(year.value.description + "년") {
                 MonthListView(year: year)
             }

@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct LogListView: View {
-    @Binding var month: Month
+    @Bindable var month: Month
+    var logs: [Log] {
+        self.month.logs
+    }
 
     @State private var searchText: String = ""
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            List(month.logs, id: \.self) { log in
+                Text(log.content)
+            }
+            Button(action: {
+                month.logs.append(Log(title: Date.now.description, content: "qwer", tags: []))
+            }, label: {
+                Text("Button")
+            })
+        }
+        .onChange(of: month.logs) {
+            dump("logs : \(month.logs)")
+        }
     }
 }
 
 #Preview {
-    LogListView(month: .constant(.mockData))
+    LogListView(month: .mockData)
+        .preferredColorScheme(.dark)
 }

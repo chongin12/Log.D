@@ -7,13 +7,28 @@
 
 import Foundation
 
-struct Month: Codable, Hashable {
+@Observable
+class Month: Codable, Hashable {
     var value: Int
     var logs: [Log]
+
+    init(value: Int, logs: [Log]) {
+        self.value = value
+        self.logs = logs
+    }
+
+    static func == (lhs: Month, rhs: Month) -> Bool {
+        lhs.value == rhs.value
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.value)
+        hasher.combine(self.logs)
+    }
 }
 
 extension Month {
-    static var mockData: Self {
+    static var mockData: Month {
         Month(value: 5, logs: .mockData)
     }
 }

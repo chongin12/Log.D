@@ -1,5 +1,5 @@
 //
-//  AddYearView.swift
+//  AddMonthView.swift
 //  LogD
 //
 //  Created by 정종인 on 4/12/24.
@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct AddYearView: View {
+struct AddMonthView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
+
+    let year: Year
+    let addMonth: (Month) -> Void
 
     @State private var inputText: String = ""
     @State private var validateStatus: ValidateType = .none
@@ -19,12 +21,14 @@ struct AddYearView: View {
         NavigationStack {
             VStack {
                 Spacer()
-                YearInputView()
+                Text("\(self.year.value.description)년")
+                    .font(.title.weight(.thin))
+                MonthInputView()
                 ValidatingText()
                 Spacer()
                 DoneButton()
             }
-            .navigationTitle("연도 추가")
+            .navigationTitle("월 추가")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -48,12 +52,12 @@ struct AddYearView: View {
 }
 
 // MARK: - Private Views
-extension AddYearView {
+extension AddMonthView {
     @ViewBuilder
-    private func YearInputView() -> some View {
+    private func MonthInputView() -> some View {
         HStack {
             Spacer()
-            TextField("연도 입력", text: $inputText, prompt: Text("____"))
+            TextField("월 입력", text: $inputText, prompt: Text("__"))
                 .font(.system(size: 64, weight: .bold))
                 .keyboardType(.numberPad)
                 .fixedSize()
@@ -63,7 +67,7 @@ extension AddYearView {
                         self.validateStatus = await self.validate()
                     }
                 }
-            Text("년")
+            Text("월")
                 .font(.title)
                 .fontWeight(.regular)
             Spacer()
@@ -76,7 +80,7 @@ extension AddYearView {
         case .none:
             EmptyView()
         case .success:
-            Text("✅ 해당 연도를 추가할 수 있습니다.")
+            Text("✅ 해당 월을 추가할 수 있습니다.")
                 .font(.footnote)
                 .foregroundStyle(.green)
         case .alreadyExist:
@@ -103,8 +107,8 @@ extension AddYearView {
     @ViewBuilder
     private func DoneButton() -> some View {
         Button(action: {
-            if let yearValue = Int(inputText) {
-                modelContext.insert(Year(value: yearValue))
+            if let monthValue = Int(inputText) {
+                self.year.months.append(Month(value: monthValue, logs: []))
             }
             dismiss()
         }, label: {
@@ -123,23 +127,17 @@ extension AddYearView {
     }
 }
 
-import SwiftData
-
 // MARK: - Private Logics
-extension AddYearView {
+extension AddMonthView {
     @MainActor
     private func validate() -> ValidateType {
         if inputText.isEmpty {
             return .none
         }
-        if let yearValue = Int(inputText) {
-            if 1000..<10000 ~= yearValue {
-                let fetchDescriptor = FetchDescriptor<Year>(predicate: #Predicate { $0.value == yearValue })
-                if let sameModels = try? modelContext.fetch(fetchDescriptor) {
-                    return sameModels.isEmpty ? .success : .alreadyExist
-                } else {
-                    return .unknownError
-                }
+        if let monthValue = Int(inputText) {
+            if 1...12 ~= monthValue {
+                let sameModels = self.year.months.filter { $0.value == monthValue }
+                return sameModels.isEmpty ? .success : .alreadyExist
             } else {
                 return .outOfRange
             }
@@ -150,6 +148,6 @@ extension AddYearView {
 }
 
 #Preview {
-    AddYearView()
+    AddMonthView(year: .mockData, addMonth: { _ in })
         .preferredColorScheme(.dark)
 }
