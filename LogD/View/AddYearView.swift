@@ -13,7 +13,8 @@ struct AddYearView: View {
 
     @State private var inputText: String = ""
     @State private var validateStatus: ValidateType = .none
-    @FocusState private var focusField: Bool?
+    @FocusState private var focusField: Bool
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -40,6 +41,9 @@ struct AddYearView: View {
         .onAppear {
             focusField = true
         }
+        .onTapGesture {
+            focusField = false
+        }
     }
 }
 
@@ -53,7 +57,7 @@ extension AddYearView {
                 .font(.system(size: 64, weight: .bold))
                 .keyboardType(.numberPad)
                 .fixedSize()
-                .focused($focusField, equals: true)
+                .focused($focusField)
                 .onChange(of: inputText) { oldValue, newValue in
                     Task {
                         self.validateStatus = await self.validate()
@@ -124,16 +128,6 @@ import SwiftData
 
 // MARK: - Private Logics
 extension AddYearView {
-    enum ValidateType {
-        case success
-        case alreadyExist
-        case outOfRange
-        case notANumber
-        case pending
-        case none
-        case unknownError
-    }
-
     @MainActor
     private func validate() -> ValidateType {
         if let yearValue = Int(inputText) {

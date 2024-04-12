@@ -14,6 +14,11 @@ struct LogDApp: App {
     init() {
         do {
             modelContainer = try ModelContainer(for: Year.self)
+//            do {
+//                try modelContainer.mainContext.delete(model: Year.self)
+//            } catch {
+//                print("Failed to clear all Years")
+//            }
         } catch {
             fatalError("Could not initialize ModelContainer")
         }

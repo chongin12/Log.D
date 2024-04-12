@@ -19,6 +19,7 @@
 		6F1EBB772BC8DAD800EFFD63 /* AddYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB762BC8DAD800EFFD63 /* AddYearView.swift */; };
 		6F1EBB792BC8DEAF00EFFD63 /* Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB782BC8DEAF00EFFD63 /* Year.swift */; };
 		6F1EBB7B2BC8DF9600EFFD63 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */; };
+		6F1EBB812BC9801300EFFD63 /* ValidateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB802BC9801300EFFD63 /* ValidateType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6F1EBB762BC8DAD800EFFD63 /* AddYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddYearView.swift; sourceTree = "<group>"; };
 		6F1EBB782BC8DEAF00EFFD63 /* Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Year.swift; sourceTree = "<group>"; };
 		6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		6F1EBB802BC9801300EFFD63 /* ValidateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				6F1EBB6F2BC8C5B500EFFD63 /* Log.swift */,
 				6F1EBB782BC8DEAF00EFFD63 /* Year.swift */,
 				6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */,
+				6F1EBB802BC9801300EFFD63 /* ValidateType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			files = (
 				6F1EBB6E2BC8C54F00EFFD63 /* LogListView.swift in Sources */,
 				6F1EBB772BC8DAD800EFFD63 /* AddYearView.swift in Sources */,
+				6F1EBB812BC9801300EFFD63 /* ValidateType.swift in Sources */,
 				6F1EBB592BC8C47300EFFD63 /* LogDApp.swift in Sources */,
 				6F1EBB702BC8C5B500EFFD63 /* Log.swift in Sources */,
 				6F1EBB792BC8DEAF00EFFD63 /* Year.swift in Sources */,
