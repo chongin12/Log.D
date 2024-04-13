@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct YearListView: View {
+    @Environment(\.modelContext) private var modelContext
+
     @Query private var years: [Year]
 
     @State private var isPresentingModal: Bool = false
@@ -20,7 +22,7 @@ struct YearListView: View {
                 SearchResultView()
             }
         }
-        .searchable(text: $searchText, prompt: "일기를 검색하세요")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
         .navigationTitle("Log.Yearly")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
@@ -35,8 +37,16 @@ struct YearListView: View {
         .fullScreenCover(isPresented: $isPresentingModal, onDismiss: {
 
         }, content: {
-            AddYearView()
-                .presentationBackground(.thinMaterial)
+            AddYearView(
+                insertYear: { year in
+                    modelContext.insert(year)
+                },
+                fetchYearsWithValue: { yearValue in
+                    let fetchDescriptor = FetchDescriptor<Year>(predicate: #Predicate { $0.value == yearValue })
+                    return try modelContext.fetch(fetchDescriptor)
+                }
+            )
+            .presentationBackground(.thinMaterial)
         })
     }
 

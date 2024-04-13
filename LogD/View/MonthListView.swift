@@ -26,7 +26,7 @@ struct MonthListView: View {
                 }
             }
         }
-        .searchable(text: $searchText, prompt: "일기를 검색하세요")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
         .navigationTitle("Log.\(year.value.description)")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {

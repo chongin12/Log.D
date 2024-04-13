@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddYearView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
+
+    let insertYear: (Year) -> Void
+    let fetchYearsWithValue: (Int) throws -> [Year]
 
     @State private var inputText: String = ""
     @State private var validateStatus: ValidateType = .none
@@ -104,7 +106,7 @@ extension AddYearView {
     private func DoneButton() -> some View {
         Button(action: {
             if let yearValue = Int(inputText) {
-                modelContext.insert(Year(value: yearValue))
+                self.insertYear(Year(value: yearValue))
             }
             dismiss()
         }, label: {
@@ -134,8 +136,7 @@ extension AddYearView {
         }
         if let yearValue = Int(inputText) {
             if 1000..<10000 ~= yearValue {
-                let fetchDescriptor = FetchDescriptor<Year>(predicate: #Predicate { $0.value == yearValue })
-                if let sameModels = try? modelContext.fetch(fetchDescriptor) {
+                if let sameModels = try? self.fetchYearsWithValue(yearValue) {
                     return sameModels.isEmpty ? .success : .alreadyExist
                 } else {
                     return .unknownError
@@ -150,6 +151,6 @@ extension AddYearView {
 }
 
 #Preview {
-    AddYearView()
+    AddYearView(insertYear: { _ in }, fetchYearsWithValue: { _ in [] })
         .preferredColorScheme(.dark)
 }
