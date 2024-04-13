@@ -14,15 +14,24 @@ struct LogListView: View {
 
     @FocusState private var focusState: LogFocusType?
     var body: some View {
-        VStack {
+        ScrollView {
             ForEach($month.logs) { log in
                 LogView(log: log, focusState: $focusState)
             }
-            Button(action: {
-                month.logs.append(Log(title: Date.now.description, content: "qwer", tags: []))
-            }, label: {
-                Text("Button")
-            })
+            .padding()
+        }
+        .scrollIndicators(.hidden)
+        .searchable(text: $searchText, prompt: "일기를 검색하세요")
+        .navigationTitle("\(month.value.description)월")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            }
         }
     }
 }
