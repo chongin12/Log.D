@@ -10,8 +10,8 @@ import SwiftData
 
 @Model
 class Year {
-    var value: Int
-    var months: [Month]
+    @Attribute(.unique) var value: Int
+    @Relationship(deleteRule: .cascade) var months: [Month]
 
     init(value: Int, months: [Month] = []) {
         self.value = value

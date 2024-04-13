@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct YearListView: View {
     @Environment(\.modelContext) private var modelContext
@@ -66,8 +67,6 @@ struct YearListView: View {
         }
     }
 }
-
-import SwiftData
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)

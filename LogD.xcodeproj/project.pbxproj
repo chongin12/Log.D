@@ -21,6 +21,7 @@
 		6F1EBB7B2BC8DF9600EFFD63 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */; };
 		6F1EBB812BC9801300EFFD63 /* ValidateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB802BC9801300EFFD63 /* ValidateType.swift */; };
 		6F1EBB832BC9806B00EFFD63 /* AddMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB822BC9806B00EFFD63 /* AddMonthView.swift */; };
+		6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0B2BCAA858003E674F /* LogView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		6F1EBB802BC9801300EFFD63 /* ValidateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateType.swift; sourceTree = "<group>"; };
 		6F1EBB822BC9806B00EFFD63 /* AddMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMonthView.swift; sourceTree = "<group>"; };
+		6FC1FE0B2BCAA858003E674F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		6F1EBB672BC8C4ED00EFFD63 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6FC1FE0A2BCAA848003E674F /* Component */,
 				6F1EBB742BC8CDB100EFFD63 /* RootView.swift */,
 				6F1EBB692BC8C51A00EFFD63 /* YearListView.swift */,
 				6F1EBB762BC8DAD800EFFD63 /* AddYearView.swift */,
@@ -121,6 +124,14 @@
 				6F1EBB722BC8C79600EFFD63 /* Array+.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		6FC1FE0A2BCAA848003E674F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				6FC1FE0B2BCAA858003E674F /* LogView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +211,7 @@
 				6F1EBB702BC8C5B500EFFD63 /* Log.swift in Sources */,
 				6F1EBB792BC8DEAF00EFFD63 /* Year.swift in Sources */,
 				6F1EBB6A2BC8C51A00EFFD63 /* YearListView.swift in Sources */,
+				6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */,
 				6F1EBB832BC9806B00EFFD63 /* AddMonthView.swift in Sources */,
 				6F1EBB752BC8CDB100EFFD63 /* RootView.swift in Sources */,
 				6F1EBB732BC8C79600EFFD63 /* Array+.swift in Sources */,

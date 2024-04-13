@@ -15,10 +15,11 @@ struct MonthListView: View {
     var body: some View {
         Group {
             if searchText.isEmpty {
-                List(year.months, id: \.self) { month in
+                List(year.months) { month in
                     NavigationLink(month.value.description + "월") {
                         LogListView(month: month)
                     }
+                    Text("개수 : \(month.logs.count)")
                 }
             } else {
                 List {

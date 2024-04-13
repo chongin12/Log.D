@@ -53,7 +53,7 @@ struct AddYearView: View {
 extension AddYearView {
     @ViewBuilder
     private func YearInputView() -> some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Spacer()
             TextField("연도 입력", text: $inputText, prompt: Text("____"))
                 .font(.system(size: 64, weight: .bold))

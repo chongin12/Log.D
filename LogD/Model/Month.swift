@@ -6,27 +6,18 @@
 //
 
 import Foundation
+import SwiftData
 
-@Observable
-class Month: Codable, Hashable {
-    var value: Int
-    var logs: [Log]
+@Model
+class Month {
+    @Attribute(.unique) var value: Int
+    @Relationship(deleteRule: .cascade) var logs: [Log]
 
-    init(value: Int, logs: [Log]) {
+    init(value: Int, logs: [Log] = []) {
         self.value = value
         self.logs = logs
     }
-
-    static func == (lhs: Month, rhs: Month) -> Bool {
-        lhs.value == rhs.value
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.value)
-        hasher.combine(self.logs)
-    }
 }
-
 extension Month {
     static var mockData: Month {
         Month(value: 5, logs: .mockData)

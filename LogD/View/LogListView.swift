@@ -9,15 +9,14 @@ import SwiftUI
 
 struct LogListView: View {
     @Bindable var month: Month
-    var logs: [Log] {
-        self.month.logs
-    }
 
     @State private var searchText: String = ""
+
+    @FocusState private var focusState: LogFocusType?
     var body: some View {
         VStack {
-            List(month.logs, id: \.self) { log in
-                Text(log.content)
+            ForEach($month.logs) { log in
+                LogView(log: log, focusState: $focusState)
             }
             Button(action: {
                 month.logs.append(Log(title: Date.now.description, content: "qwer", tags: []))
@@ -25,10 +24,12 @@ struct LogListView: View {
                 Text("Button")
             })
         }
-        .onChange(of: month.logs) {
-            dump("logs : \(month.logs)")
-        }
     }
+}
+
+enum LogFocusType: Hashable {
+    case title(UUID)
+    case content(UUID)
 }
 
 #Preview {

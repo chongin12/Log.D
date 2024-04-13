@@ -14,11 +14,7 @@ struct LogDApp: App {
     init() {
         do {
             modelContainer = try ModelContainer(for: Year.self)
-//            do {
-//                try modelContainer.mainContext.delete(model: Year.self)
-//            } catch {
-//                print("Failed to clear all Years")
-//            }
+//            resetModelContainer()
         } catch {
             fatalError("Could not initialize ModelContainer")
         }
@@ -27,6 +23,15 @@ struct LogDApp: App {
         WindowGroup {
             RootView()
                 .modelContainer(modelContainer)
+        }
+    }
+
+    @MainActor
+    private func resetModelContainer() {
+        do {
+            try modelContainer.mainContext.delete(model: Year.self)
+        } catch {
+            print("Failed to clear all Years")
         }
     }
 }

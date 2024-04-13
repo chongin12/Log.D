@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct Log: Codable {
-//    var id: UUID
+struct Log: Codable, Identifiable {
+    var id: UUID
     var title: String
     var content: String
     var tags: Set<String>
 
-//    init(title: String, content: String, tags: Set<String>) {
-//        self.id = UUID()
-//        self.title = title
-//        self.content = content
-//        self.tags = tags
-//    }
+    init(title: String, content: String, tags: Set<String>) {
+        self.id = UUID()
+        self.title = title
+        self.content = content
+        self.tags = tags
+    }
 }
 
 extension Log: Hashable {
@@ -26,6 +26,13 @@ extension Log: Hashable {
         hasher.combine(self.title)
         hasher.combine(self.content)
         hasher.combine(self.tags)
+        hasher.combine(self.id)
+    }
+}
+
+extension Log {
+    static var mockData: Self {
+        Log(title: "12일", content: "12일의 내용", tags: ["태그1", "태그2"])
     }
 }
 

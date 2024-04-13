@@ -55,9 +55,9 @@ struct AddMonthView: View {
 extension AddMonthView {
     @ViewBuilder
     private func MonthInputView() -> some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Spacer()
-            TextField("월 입력", text: $inputText, prompt: Text("__"))
+            TextField("월 입력", text: $inputText, prompt: Text("_"))
                 .font(.system(size: 64, weight: .bold))
                 .keyboardType(.numberPad)
                 .fixedSize()
@@ -108,7 +108,7 @@ extension AddMonthView {
     private func DoneButton() -> some View {
         Button(action: {
             if let monthValue = Int(inputText) {
-                self.year.months.append(Month(value: monthValue, logs: []))
+                addMonth(Month(value: monthValue, logs: []))
             }
             dismiss()
         }, label: {
