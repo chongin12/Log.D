@@ -11,7 +11,7 @@ import SwiftData
 struct YearListView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query private var years: [Year]
+    @Query(sort: \Year.value, order: .reverse) private var years: [Year]
 
     @State private var isPresentingModal: Bool = false
     @State private var searchText: String = ""

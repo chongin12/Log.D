@@ -12,6 +12,9 @@ import SwiftData
 class Year {
     @Attribute(.unique) var value: Int
     @Relationship(deleteRule: .cascade) var months: [Month]
+    @Transient var sortedMonths: [Month] {
+        self.months.sorted { $0.value > $1.value }
+    }
 
     init(value: Int, months: [Month] = []) {
         self.value = value

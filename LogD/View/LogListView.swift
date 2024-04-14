@@ -12,21 +12,13 @@ struct LogListView: View {
     @Bindable var month: Month
 
     @State private var searchText: String = ""
-    @State private var addingLog: Log = .init(title: "", content: "", tags: [])
 
     @FocusState private var focusState: LogFocusType?
-
-//    private let tagSubject = PassthroughSubject<String, Never>()
-//    private var anyCancellables = Set<AnyCancellable>()
-
-    init(month: Month) {
-        self.month = month
-    }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(month.logs) { log in
+                ForEach(month.sortedLogs) { log in
                     LogView(log: log, focusState: $focusState)
                         .contextMenu {
                             Text("생성 : \(log.createdDate.formatted())")
@@ -38,6 +30,7 @@ struct LogListView: View {
                             })
                         }
                 }
+                .listStyle(.plain)
             }
             .padding()
         }
@@ -49,7 +42,7 @@ struct LogListView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     let newLog: Log = .emptyData
-                    month.logs.insert(newLog, at: 0)
+                    month.logs.insert(contentsOf: [newLog], at: .zero)
                     focusState = .title(newLog.id)
                 }, label: {
                     Image(systemName: "plus")

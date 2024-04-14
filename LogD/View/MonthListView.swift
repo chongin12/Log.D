@@ -15,7 +15,7 @@ struct MonthListView: View {
     var body: some View {
         Group {
             if searchText.isEmpty {
-                List(year.months) { month in
+                List(year.sortedMonths) { month in
                     NavigationLink(month.value.description + "월") {
                         LogListView(month: month)
                     }

@@ -13,6 +13,9 @@ class Month: Identifiable {
     @Attribute(.unique) var id: UUID
     var value: Int
     @Relationship(deleteRule: .cascade) var logs: [Log]
+    @Transient var sortedLogs: [Log] {
+        self.logs.sorted { $0.createdDate > $1.createdDate }
+    }
 
     init(value: Int, logs: [Log] = []) {
         self.id = UUID()
