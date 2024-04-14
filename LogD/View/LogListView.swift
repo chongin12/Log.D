@@ -19,7 +19,7 @@ struct LogListView: View {
             VStack(spacing: 16) {
                 ForEach($month.logs) { log in
                     LogView(log: log, focusState: $focusState)
-                        .contextMenu(ContextMenu(menuItems: {
+                        .contextMenu {
                             Text("생성 : \(log.wrappedValue.createdDate.formatted())")
                             Button(role: .destructive, action: {
                                 self.focusState = nil
@@ -27,7 +27,7 @@ struct LogListView: View {
                             }, label: {
                                 Label("삭제", systemImage: "trash.fill")
                             })
-                        }))
+                        }
                 }
             }
             .padding()

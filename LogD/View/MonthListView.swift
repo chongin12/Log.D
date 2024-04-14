@@ -19,7 +19,13 @@ struct MonthListView: View {
                     NavigationLink(month.value.description + "월") {
                         LogListView(month: month)
                     }
-                    Text("개수 : \(month.logs.count)")
+                    .contextMenu {
+                        Button(role: .destructive, action: {
+                            year.months.removeAll(where: { $0.id == month.id })
+                        }, label: {
+                            Label("삭제", systemImage: "trash.fill")
+                        })
+                    }
                 }
             } else {
                 List {

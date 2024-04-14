@@ -18,7 +18,7 @@ struct YearListView: View {
     var body: some View {
         Group {
             if searchText.isEmpty {
-                YearListView()
+                YearList()
             } else {
                 SearchResultView()
             }
@@ -52,10 +52,17 @@ struct YearListView: View {
     }
 
     @ViewBuilder
-    private func YearListView() -> some View {
+    private func YearList() -> some View {
         List(years) { year in
             NavigationLink(year.value.description + "년") {
                 MonthListView(year: year)
+            }
+            .contextMenu {
+                Button(role: .destructive, action: {
+                    modelContext.delete(year)
+                }, label: {
+                    Label("삭제", systemImage: "trash.fill")
+                })
             }
         }
     }
