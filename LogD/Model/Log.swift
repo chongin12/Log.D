@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import SwiftData
+import Combine
 
-struct Log: Codable, Identifiable {
+@Model
+class Log: Identifiable {
     var id: UUID
     var title: String
     var content: String
@@ -33,11 +36,11 @@ extension Log: Hashable {
 }
 
 extension Log {
-    static var mockData: Self {
+    static var mockData: Log {
         Log(title: "12일 인데 제목이 깁니다 하나둘셋넷 하나둘셋 하나둘셋", content: "12일의 내용 하나둘셋넷다섯 하나둘셋넷 하나둘셋 하나둘 하나", tags: ["태그1", "태그2"])
     }
 
-    static var emptyData: Self {
+    static var emptyData: Log {
         Log(title: "", content: "", tags: [])
     }
 }

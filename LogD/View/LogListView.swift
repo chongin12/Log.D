@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LogListView: View {
     @Bindable var month: Month
@@ -14,13 +15,21 @@ struct LogListView: View {
     @State private var addingLog: Log = .init(title: "", content: "", tags: [])
 
     @FocusState private var focusState: LogFocusType?
+
+//    private let tagSubject = PassthroughSubject<String, Never>()
+//    private var anyCancellables = Set<AnyCancellable>()
+
+    init(month: Month) {
+        self.month = month
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach($month.logs) { log in
+                ForEach(month.logs) { log in
                     LogView(log: log, focusState: $focusState)
                         .contextMenu {
-                            Text("생성 : \(log.wrappedValue.createdDate.formatted())")
+                            Text("생성 : \(log.createdDate.formatted())")
                             Button(role: .destructive, action: {
                                 self.focusState = nil
                                 month.logs.removeAll(where: { $0.id == log.id })
@@ -33,7 +42,7 @@ struct LogListView: View {
             .padding()
         }
         .scrollIndicators(.hidden)
-        .searchable(text: $searchText, prompt: "일기를 검색하세요")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
         .navigationTitle("\(month.value.description)월")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
@@ -59,6 +68,11 @@ struct LogListView: View {
                 }
             }
         }
+    }
+
+    private func generateTags(_ content: String?) async -> Set<String> {
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        return ["tag1", "tag2"]
     }
 }
 

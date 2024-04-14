@@ -9,11 +9,13 @@ import Foundation
 import SwiftData
 
 @Model
-class Month {
-    @Attribute(.unique) var value: Int
+class Month: Identifiable {
+    @Attribute(.unique) var id: UUID
+    var value: Int
     @Relationship(deleteRule: .cascade) var logs: [Log]
 
     init(value: Int, logs: [Log] = []) {
+        self.id = UUID()
         self.value = value
         self.logs = logs
     }

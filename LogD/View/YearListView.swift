@@ -18,7 +18,7 @@ struct YearListView: View {
     var body: some View {
         Group {
             if searchText.isEmpty {
-                YearList()
+                ListView()
             } else {
                 SearchResultView()
             }
@@ -52,7 +52,7 @@ struct YearListView: View {
     }
 
     @ViewBuilder
-    private func YearList() -> some View {
+    private func ListView() -> some View {
         List(years) { year in
             NavigationLink(year.value.description + "년") {
                 MonthListView(year: year)

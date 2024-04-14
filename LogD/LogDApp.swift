@@ -30,6 +30,8 @@ struct LogDApp: App {
     private func resetModelContainer() {
         do {
             try modelContainer.mainContext.delete(model: Year.self)
+            try modelContainer.mainContext.delete(model: Month.self)
+            try modelContainer.mainContext.delete(model: Log.self)
         } catch {
             print("Failed to clear all Years")
         }

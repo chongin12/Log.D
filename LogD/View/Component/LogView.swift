@@ -6,11 +6,36 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LogView: View {
-    @Binding var log: Log
+    @Bindable var log: Log
 
     @FocusState.Binding var focusState: LogFocusType?
+
+    private var cancellables: Set<AnyCancellable> = []
+    private var tagSubject = PassthroughSubject<String, Never>()
+
+    init(log: Log, focusState: FocusState<LogFocusType?>.Binding) {
+        self.log = log
+        self._focusState = focusState
+        tagSubject
+            .removeDuplicates()
+            .flatMap { [self] content in
+                return Future { promise in
+                    Task {
+                        let tags = await self.generateTags(content)
+                        promise(.success(tags))
+                    }
+                }
+            }
+            .receive(on: RunLoop.main)
+            .sink { [self] tags in
+                print("tags : \(tags)")
+                self.log.tags = tags
+            }
+            .store(in: &cancellables)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -25,6 +50,11 @@ struct LogView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.background.secondary)
         )
+        .onChange(of: self.focusState) { oldValue, newValue in
+            if case let .content(id) = oldValue, id == self.log.id {
+                self.updateTags()
+            }
+        }
     }
 
     @ViewBuilder
@@ -67,12 +97,25 @@ struct LogView: View {
 
     @ViewBuilder
     private func TagsView() -> some View {
-        Text("태그가 여기에 표시됩니당")
+        HStack(spacing: 8) {
+            ForEach(self.log.tags.sorted(), id: \.self) { tag in
+                Text(tag)
+            }
+        }
+    }
+
+    private func updateTags() {
+        print("trigger update tags!")
+        self.tagSubject.send(self.log.content)
+    }
+    private func generateTags(_ content: String?) async -> Set<String> {
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        return ["tag1", "tag2"]
     }
 }
 
 #Preview {
     @FocusState var focusState: LogFocusType?
-    return LogView(log: .constant(.mockData), focusState: $focusState)
+    return LogView(log: .mockData, focusState: $focusState)
         .preferredColorScheme(.dark)
 }
