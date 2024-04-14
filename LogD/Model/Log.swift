@@ -12,12 +12,14 @@ struct Log: Codable, Identifiable {
     var title: String
     var content: String
     var tags: Set<String>
+    var createdDate: Date
 
     init(title: String, content: String, tags: Set<String>) {
         self.id = UUID()
         self.title = title
         self.content = content
         self.tags = tags
+        createdDate = .now
     }
 }
 
@@ -32,7 +34,11 @@ extension Log: Hashable {
 
 extension Log {
     static var mockData: Self {
-        Log(title: "12일", content: "12일의 내용", tags: ["태그1", "태그2"])
+        Log(title: "12일 인데 제목이 깁니다 하나둘셋넷 하나둘셋 하나둘셋", content: "12일의 내용 하나둘셋넷다섯 하나둘셋넷 하나둘셋 하나둘 하나", tags: ["태그1", "태그2"])
+    }
+
+    static var emptyData: Self {
+        Log(title: "", content: "", tags: [])
     }
 }
 

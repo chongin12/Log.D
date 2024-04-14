@@ -9,19 +9,11 @@ import SwiftUI
 
 struct LogView: View {
     @Binding var log: Log
+
     @FocusState.Binding var focusState: LogFocusType?
 
-    @State private var title: String = ""
-    @State private var content: String = ""
-
-    init(log: Binding<Log>, focusState: FocusState<LogFocusType?>.Binding) {
-        self._log = log
-        self._focusState = focusState
-        self._title = State<String>(initialValue: self.log.title)
-        self._content = State<String>(initialValue: self.log.content)
-    }
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 16) {
             TitleTextField()
             ContentTextEditor()
             FooterView()
@@ -37,8 +29,16 @@ struct LogView: View {
 
     @ViewBuilder
     private func TitleTextField() -> some View {
-        TextField("타이틀", text: $title, axis: .vertical)
+        TextField("타이틀", text: $log.title, axis: .vertical)
             .lineLimit(1...)
+            .onChange(of: log.title, { oldValue, newValue in
+                guard let lastCharacter = newValue.last else { return }
+                if lastCharacter == "\n" {
+                    log.title.removeLast()
+                    self.focusState = .content(self.log.id)
+                }
+            })
+            .submitLabel(.next)
             .focused($focusState, equals: .title(log.id))
             .font(.title.bold())
             .padding(.horizontal, 4)
@@ -46,7 +46,7 @@ struct LogView: View {
 
     @ViewBuilder
     private func ContentTextEditor() -> some View {
-        TextEditor(text: $content)
+        TextEditor(text: $log.content)
             .focused($focusState, equals: .content(log.id))
             .scrollIndicators(.hidden)
             .scrollDisabled(true)
@@ -59,7 +59,7 @@ struct LogView: View {
     @ViewBuilder
     private func FooterView() -> some View {
         if [.content(self.log.id), .title(self.log.id)].contains(focusState) {
-            ConfirmView()
+            EmptyView()
         } else {
             TagsView()
         }
@@ -68,37 +68,6 @@ struct LogView: View {
     @ViewBuilder
     private func TagsView() -> some View {
         Text("태그가 여기에 표시됩니당")
-    }
-
-    @ViewBuilder
-    private func ConfirmView() -> some View {
-        HStack(spacing: 8) {
-            Button(action: {
-                self.focusState = nil
-            }, label: {
-                HStack {
-                    Spacer()
-                    Text("취소")
-                    Spacer()
-                }
-            })
-            .tint(Color.gray)
-
-            Button(action: {
-                self.log.title = self.title
-                self.log.content = self.content
-                self.focusState = nil
-            }, label: {
-                HStack {
-                    Spacer()
-                    Text("완료")
-                    Spacer()
-                }
-            })
-        }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.capsule)
-        .controlSize(.large)
     }
 }
 
