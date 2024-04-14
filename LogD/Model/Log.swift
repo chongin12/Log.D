@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftData
-import Combine
 
 @Model
 class Log: Identifiable {
@@ -17,12 +16,31 @@ class Log: Identifiable {
     var tags: Set<String>
     var createdDate: Date
 
+    @Attribute(.ephemeral) var isLoadingTags: Bool = false
+
     init(title: String, content: String, tags: Set<String>) {
         self.id = UUID()
         self.title = title
         self.content = content
         self.tags = tags
         createdDate = .now
+    }
+}
+
+extension Log {
+    @MainActor
+    public func updateTags() {
+        Task {
+            self.tags = await generateTags(self.content)
+            isLoadingTags = false
+        }
+    }
+}
+
+extension Log {
+    private func generateTags(_ content: String?) async -> Set<String> {
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        return ["tag\(Int.random(in: 0..<100))", "tag2"]
     }
 }
 

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct LogListView: View {
     @Bindable var month: Month

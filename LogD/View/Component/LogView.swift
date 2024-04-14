@@ -6,35 +6,15 @@
 //
 
 import SwiftUI
-import Combine
 
 struct LogView: View {
     @Bindable var log: Log
 
     @FocusState.Binding var focusState: LogFocusType?
 
-    private var cancellables: Set<AnyCancellable> = []
-    private var tagSubject = PassthroughSubject<String, Never>()
-
     init(log: Log, focusState: FocusState<LogFocusType?>.Binding) {
         self.log = log
         self._focusState = focusState
-        tagSubject
-            .removeDuplicates()
-            .flatMap { [self] content in
-                return Future { promise in
-                    Task {
-                        let tags = await self.generateTags(content)
-                        promise(.success(tags))
-                    }
-                }
-            }
-            .receive(on: RunLoop.main)
-            .sink { [self] tags in
-                print("tags : \(tags)")
-                self.log.tags = tags
-            }
-            .store(in: &cancellables)
     }
 
     var body: some View {
@@ -88,7 +68,9 @@ struct LogView: View {
 
     @ViewBuilder
     private func FooterView() -> some View {
-        if [.content(self.log.id), .title(self.log.id)].contains(focusState) {
+        if log.isLoadingTags {
+            ProgressView()
+        } else if [.content(self.log.id), .title(self.log.id)].contains(focusState) {
             EmptyView()
         } else {
             TagsView()
@@ -104,13 +86,10 @@ struct LogView: View {
         }
     }
 
+    @MainActor 
     private func updateTags() {
-        print("trigger update tags!")
-        self.tagSubject.send(self.log.content)
-    }
-    private func generateTags(_ content: String?) async -> Set<String> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        return ["tag1", "tag2"]
+        self.log.isLoadingTags = true
+        self.log.updateTags()
     }
 }
 
