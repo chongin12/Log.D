@@ -24,19 +24,16 @@ class Month: Identifiable {
     }
 }
 extension Month {
+    @MainActor
     static var mockData: Month {
-        Month(value: 5, logs: .mockData)
+        Month(value: 4, logs: .mockData)
     }
 }
 
 extension Array where Element == Month {
     static var mockData: Self {
         [
-            .init(value: 1, logs: .mockData),
-            .init(value: 2, logs: .mockData),
-            .init(value: 3, logs: .mockData),
-            .init(value: 4, logs: .mockData),
-            .init(value: 5, logs: .mockData),
+            .init(value: 1, logs: .mockData)
         ]
     }
 }

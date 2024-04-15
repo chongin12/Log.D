@@ -76,14 +76,9 @@ struct YearListView: View {
 }
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Year.self, configurations: config)
-
-    container.mainContext.insert(Year.mockData)
-
     return NavigationStack {
         YearListView()
             .preferredColorScheme(.dark)
-            .modelContainer(container)
+            .modelContainer(Year.preview)
     }
 }

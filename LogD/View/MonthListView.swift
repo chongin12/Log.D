@@ -56,9 +56,14 @@ struct MonthListView: View {
     }
 }
 
+import SwiftData
+
 #Preview {
-    NavigationStack {
-        MonthListView(year: .mockData)
+    let fetchDescriptor = FetchDescriptor<Year>()
+
+    let years = try! Year.preview.mainContext.fetch(fetchDescriptor)
+    return NavigationStack {
+        MonthListView(year: years[0])
             .preferredColorScheme(.dark)
     }
 }

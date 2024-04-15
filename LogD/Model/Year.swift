@@ -23,8 +23,20 @@ class Year {
 }
 
 extension Year {
+    @MainActor
     static var mockData: Year {
-        Year(value: 2024, months: .mockData)
+        Year(value: 2026, months: .mockData)
+    }
+}
+
+extension Year {
+    @MainActor
+    static var preview: ModelContainer {
+        let container = try! ModelContainer(for: Year.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+
+        container.mainContext.insert(Year.mockData)
+
+        return container
     }
 }
 

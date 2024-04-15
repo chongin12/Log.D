@@ -68,12 +68,13 @@ struct LogListView: View {
     }
 }
 
-enum LogFocusType: Hashable {
-    case title(UUID)
-    case content(UUID)
-}
+import SwiftData
 
 #Preview {
-    LogListView(month: .mockData)
+    let fetchDescriptor = FetchDescriptor<Month>()
+
+    let month = try! Year.preview.mainContext.fetch(fetchDescriptor)
+    return LogListView(month: month[0])
         .preferredColorScheme(.dark)
+        .modelContainer(Year.preview)
 }

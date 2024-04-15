@@ -23,7 +23,7 @@ class Log: Identifiable {
         self.title = title
         self.content = content
         self.tags = tags
-        createdDate = .now
+        self.createdDate = .now
     }
 }
 

@@ -23,6 +23,7 @@
 		6F1EBB832BC9806B00EFFD63 /* AddMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EBB822BC9806B00EFFD63 /* AddMonthView.swift */; };
 		6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0B2BCAA858003E674F /* LogView.swift */; };
 		6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0D2BCCB129003E674F /* ImageListView.swift */; };
+		6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		6F1EBB822BC9806B00EFFD63 /* AddMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMonthView.swift; sourceTree = "<group>"; };
 		6FC1FE0B2BCAA858003E674F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		6FC1FE0D2BCCB129003E674F /* ImageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListView.swift; sourceTree = "<group>"; };
+		6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFocusType.swift; sourceTree = "<group>"; };
+		6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,7 @@
 		6F1EBB572BC8C47300EFFD63 /* LogD */ = {
 			isa = PBXGroup;
 			children = (
+				6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */,
 				6F1EBB582BC8C47300EFFD63 /* LogDApp.swift */,
 				6F1EBB682BC8C4F800EFFD63 /* Model */,
 				6F1EBB672BC8C4ED00EFFD63 /* View */,
@@ -103,8 +107,8 @@
 				6F1EBB692BC8C51A00EFFD63 /* YearListView.swift */,
 				6F1EBB762BC8DAD800EFFD63 /* AddYearView.swift */,
 				6F1EBB6B2BC8C52A00EFFD63 /* MonthListView.swift */,
-				6F1EBB6D2BC8C54F00EFFD63 /* LogListView.swift */,
 				6F1EBB822BC9806B00EFFD63 /* AddMonthView.swift */,
+				6F1EBB6D2BC8C54F00EFFD63 /* LogListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -116,6 +120,7 @@
 				6F1EBB782BC8DEAF00EFFD63 /* Year.swift */,
 				6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */,
 				6F1EBB802BC9801300EFFD63 /* ValidateType.swift */,
+				6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				6F1EBB792BC8DEAF00EFFD63 /* Year.swift in Sources */,
 				6F1EBB6A2BC8C51A00EFFD63 /* YearListView.swift in Sources */,
 				6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */,
+				6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */,
 				6F1EBB832BC9806B00EFFD63 /* AddMonthView.swift in Sources */,
 				6F1EBB752BC8CDB100EFFD63 /* RootView.swift in Sources */,
 				6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */,
@@ -351,9 +357,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LogD/Preview Content\"";
 				DEVELOPMENT_TEAM = SYZM4D2Z3D;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LogD/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "썸네일 미리보기를 표시하기 위해 사진첩 접근 권한이 필요합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -390,9 +397,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LogD/Preview Content\"";
 				DEVELOPMENT_TEAM = SYZM4D2Z3D;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LogD/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "썸네일 미리보기를 표시하기 위해 사진첩 접근 권한이 필요합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
