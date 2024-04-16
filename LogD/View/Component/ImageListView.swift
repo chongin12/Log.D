@@ -39,7 +39,7 @@ struct ImageListView: View {
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .automatic))
                 .scrollIndicators(.hidden)
                 .onAppear {
-                    self.mainFilmID = films.first?.id
+                    self.mainFilmID = films.last?.id
                 }
             case .failure:
                 Text("Failed")
@@ -100,11 +100,12 @@ struct ImageListView: View {
 
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-        let yesterday = calendar.date(byAdding: .day, value: -5, to: today)!
+        let tomorrow = calendar.date(byAdding: .day, value: +1, to: today)!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: today)!
 
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        // NSPredicate를 사용하여 creationDate가 어제부터 오늘까지인 항목만 가져오기
-        fetchOptions.predicate = NSPredicate(format: "creationDate >= %@ AND creationDate <= %@", argumentArray: [yesterday, today])
+        // NSPredicate를 사용하여 creationDate가 엊그제부터 내일까지인 항목만 가져오기
+        fetchOptions.predicate = NSPredicate(format: "creationDate >= %@ AND creationDate <= %@", argumentArray: [weekAgo, tomorrow])
         photoAssets = PHAsset.fetchAssets(with: fetchOptions)
 
         var films = [Film]()
@@ -127,7 +128,7 @@ struct ImageListView: View {
                 contentMode: .aspectFill,
                 options: options,
                 resultHandler: { (image, info) -> Void in
-                    if let image {
+                    if let image, films.count < 1000 { // 너무 많이 가져오면 터짐
                         films.append(Film(date: asset.creationDate, image: Image(uiImage: image)))
                     }
                 }
