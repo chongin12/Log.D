@@ -24,6 +24,7 @@
 		6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0B2BCAA858003E674F /* LogView.swift */; };
 		6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0D2BCCB129003E674F /* ImageListView.swift */; };
 		6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */; };
+		6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0292BCE151C00317CD2 /* Film.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		6FC1FE0D2BCCB129003E674F /* ImageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListView.swift; sourceTree = "<group>"; };
 		6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFocusType.swift; sourceTree = "<group>"; };
 		6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6FF5D0292BCE151C00317CD2 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		6F1EBB672BC8C4ED00EFFD63 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6FF5D0222BCD4B3700317CD2 /* Style */,
 				6FC1FE0A2BCAA848003E674F /* Component */,
 				6F1EBB742BC8CDB100EFFD63 /* RootView.swift */,
 				6F1EBB692BC8C51A00EFFD63 /* YearListView.swift */,
@@ -121,6 +124,7 @@
 				6F1EBB7A2BC8DF9600EFFD63 /* Month.swift */,
 				6F1EBB802BC9801300EFFD63 /* ValidateType.swift */,
 				6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */,
+				6FF5D0292BCE151C00317CD2 /* Film.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -140,6 +144,13 @@
 				6FC1FE0D2BCCB129003E674F /* ImageListView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		6FF5D0222BCD4B3700317CD2 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +236,7 @@
 				6F1EBB752BC8CDB100EFFD63 /* RootView.swift in Sources */,
 				6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */,
 				6F1EBB732BC8C79600EFFD63 /* Array+.swift in Sources */,
+				6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */,
 				6F1EBB7B2BC8DF9600EFFD63 /* Month.swift in Sources */,
 				6F1EBB6C2BC8C52A00EFFD63 /* MonthListView.swift in Sources */,
 			);

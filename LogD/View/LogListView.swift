@@ -11,10 +11,52 @@ struct LogListView: View {
     @Bindable var month: Month
 
     @State private var searchText: String = ""
+    @State private var isFlimShowing: Bool = false
 
     @FocusState private var focusState: LogFocusType?
 
     var body: some View {
+        ZStack(alignment: .bottom) {
+            ListView()
+            if isFlimShowing {
+                ImageListView()
+            }
+        }
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
+        .navigationTitle("\(month.value.description)월")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Toggle(isOn: self.$isFlimShowing) {
+                    Image(systemName: "film.fill")
+                }
+                Button(action: {
+                    let newLog: Log = .emptyData
+                    month.logs.insert(contentsOf: [newLog], at: .zero)
+                    focusState = .title(newLog.id)
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                if case let .title(id) = self.focusState {
+                    Button("다음") {
+                        self.focusState = .content(id)
+                    }
+                } else {
+                    Button("완료") {
+                        self.focusState = nil
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func ListView() -> some View {
         ScrollView {
             VStack(spacing: 16) {
                 ForEach(month.sortedLogs) { log in
@@ -34,32 +76,6 @@ struct LogListView: View {
             .padding()
         }
         .scrollIndicators(.hidden)
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
-        .navigationTitle("\(month.value.description)월")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    let newLog: Log = .emptyData
-                    month.logs.insert(contentsOf: [newLog], at: .zero)
-                    focusState = .title(newLog.id)
-                }, label: {
-                    Image(systemName: "plus")
-                })
-            }
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                if case let .title(id) = self.focusState {
-                    Button("다음") {
-                        self.focusState = .content(id)
-                    }
-                } else {
-                    Button("완료") {
-                        self.focusState = nil
-                    }
-                }
-            }
-        }
     }
 
     private func generateTags(_ content: String?) async -> Set<String> {
@@ -74,7 +90,9 @@ import SwiftData
     let fetchDescriptor = FetchDescriptor<Month>()
 
     let month = try! Year.preview.mainContext.fetch(fetchDescriptor)
-    return LogListView(month: month[0])
-        .preferredColorScheme(.dark)
-        .modelContainer(Year.preview)
+    return NavigationStack {
+        LogListView(month: month[0])
+            .preferredColorScheme(.dark)
+            .modelContainer(Year.preview)
+    }
 }
