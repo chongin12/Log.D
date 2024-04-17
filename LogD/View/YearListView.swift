@@ -15,6 +15,23 @@ struct YearListView: View {
 
     @State private var isPresentingModal: Bool = false
     @State private var searchText: String = ""
+    @FocusState private var focusState: LogFocusType?
+    var searchResultLogs: [Log] {
+        self.years
+            .flatMap { year in
+                year.months
+            }
+            .flatMap { month in
+                month.logs
+            }
+            .filter {
+                $0.title.contains(searchText)
+                || $0.content.contains(searchText)
+                || $0.tags.contains(where: { tag in
+                    tag.contains(searchText)
+                })
+            }
+    }
     var body: some View {
         Group {
             if searchText.isEmpty {
@@ -69,9 +86,15 @@ struct YearListView: View {
 
     @ViewBuilder
     private func SearchResultView() -> some View {
-        List {
-            Text("검색~ : \(searchText)")
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(searchResultLogs) { log in
+                    LogView(log: log, focusState: $focusState)
+                }
+            }
+            .padding()
         }
+        .scrollIndicators(.hidden)
     }
 }
 

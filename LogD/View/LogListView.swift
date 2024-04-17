@@ -14,10 +14,25 @@ struct LogListView: View {
     @State private var isFlimShowing: Bool = false
 
     @FocusState private var focusState: LogFocusType?
+    var searchResultLogs: [Log] {
+        self.month
+            .logs
+            .filter {
+                $0.title.contains(searchText)
+                || $0.content.contains(searchText)
+                || $0.tags.contains(where: { tag in
+                    tag.contains(searchText)
+                })
+            }
+    }
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ListView()
+            if searchText.isEmpty {
+                ListView()
+            } else {
+                SearchResultView()
+            }
             if isFlimShowing {
                 ImageListView()
             }
@@ -78,9 +93,17 @@ struct LogListView: View {
         .scrollIndicators(.hidden)
     }
 
-    private func generateTags(_ content: String?) async -> Set<String> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        return ["tag1", "tag2"]
+    @ViewBuilder
+    private func SearchResultView() -> some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(searchResultLogs) { log in
+                    LogView(log: log, focusState: $focusState)
+                }
+            }
+            .padding()
+        }
+        .scrollIndicators(.hidden)
     }
 }
 

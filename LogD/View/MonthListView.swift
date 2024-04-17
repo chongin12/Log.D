@@ -12,6 +12,21 @@ struct MonthListView: View {
 
     @State private var isPresentingModal: Bool = false
     @State private var searchText: String = ""
+    @FocusState private var focusState: LogFocusType?
+    var searchResultLogs: [Log] {
+        self.year
+            .months
+            .flatMap { month in
+                month.logs
+            }
+            .filter {
+                $0.title.contains(searchText)
+                || $0.content.contains(searchText)
+                || $0.tags.contains(where: { tag in
+                    tag.contains(searchText)
+                })
+            }
+    }
     var body: some View {
         Group {
             if searchText.isEmpty {
@@ -28,9 +43,7 @@ struct MonthListView: View {
                     }
                 }
             } else {
-                List {
-                    Text("검색~ : \(searchText)")
-                }
+                SearchResultView()
             }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
@@ -53,6 +66,19 @@ struct MonthListView: View {
             }
             .presentationBackground(.thinMaterial)
         })
+    }
+
+    @ViewBuilder
+    private func SearchResultView() -> some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(searchResultLogs) { log in
+                    LogView(log: log, focusState: $focusState)
+                }
+            }
+            .padding()
+        }
+        .scrollIndicators(.hidden)
     }
 }
 
