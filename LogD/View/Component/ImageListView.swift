@@ -17,7 +17,6 @@ private enum FilmLoadingStatus {
 }
 
 struct ImageListView: View {
-    @State private var currentOrientation = UIDevice.current.orientation
 
     @State private var filmLoadingStatus: FilmLoadingStatus = .initial
 
@@ -26,9 +25,7 @@ struct ImageListView: View {
     var body: some View {
         GeometryReader { proxy in
             switch filmLoadingStatus {
-            case .initial:
-                EmptyView()
-            case .loading:
+            case .initial, .loading:
                 ProgressView()
                     .frame(maxWidth: .infinity)
             case .success(let films):
@@ -58,7 +55,7 @@ struct ImageListView: View {
         }
         .padding(.vertical)
         .background(.background.opacity(0.85))
-        .aspectRatio(currentOrientation == .portrait ? 16.0 / 9.0 : 3.0 / 1.0, contentMode: .fit)
+        .aspectRatio(16.0 / 9.0, contentMode: .fit)
         .presentationBackground(.thickMaterial)
         .task {
             self.filmLoadingStatus = .loading
