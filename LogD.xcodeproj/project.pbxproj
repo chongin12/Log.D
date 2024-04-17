@@ -25,8 +25,8 @@
 		6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0D2BCCB129003E674F /* ImageListView.swift */; };
 		6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */; };
 		6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0292BCE151C00317CD2 /* Film.swift */; };
-		6FF5D02D2BCF649400317CD2 /* DiaryClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D02C2BCF649400317CD2 /* DiaryClassifier.mlmodel */; };
 		6FF5D0302BCF650A00317CD2 /* DiaryClassifierUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */; };
+		6FF5D0322BCFB5ED00317CD2 /* DiaryClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,8 +51,8 @@
 		6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFocusType.swift; sourceTree = "<group>"; };
 		6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FF5D0292BCE151C00317CD2 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
-		6FF5D02C2BCF649400317CD2 /* DiaryClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DiaryClassifier.mlmodel; sourceTree = "<group>"; };
 		6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryClassifierUseCase.swift; sourceTree = "<group>"; };
+		6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DiaryClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 		6FF5D02B2BCF648400317CD2 /* MLModel */ = {
 			isa = PBXGroup;
 			children = (
-				6FF5D02C2BCF649400317CD2 /* DiaryClassifier.mlmodel */,
+				6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */,
 			);
 			path = MLModel;
 			sourceTree = "<group>";
@@ -256,10 +256,10 @@
 				6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */,
 				6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */,
 				6F1EBB832BC9806B00EFFD63 /* AddMonthView.swift in Sources */,
+				6FF5D0322BCFB5ED00317CD2 /* DiaryClassifier.mlmodel in Sources */,
 				6F1EBB752BC8CDB100EFFD63 /* RootView.swift in Sources */,
 				6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */,
 				6F1EBB732BC8C79600EFFD63 /* Array+.swift in Sources */,
-				6FF5D02D2BCF649400317CD2 /* DiaryClassifier.mlmodel in Sources */,
 				6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */,
 				6F1EBB7B2BC8DF9600EFFD63 /* Month.swift in Sources */,
 				6F1EBB6C2BC8C52A00EFFD63 /* MonthListView.swift in Sources */,
