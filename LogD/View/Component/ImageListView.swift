@@ -17,6 +17,8 @@ private enum FilmLoadingStatus {
 }
 
 struct ImageListView: View {
+    @State private var currentOrientation = UIDevice.current.orientation
+
     @State private var filmLoadingStatus: FilmLoadingStatus = .initial
 
     @State private var mainFilmID: Film.ID? = nil
@@ -25,7 +27,7 @@ struct ImageListView: View {
         GeometryReader { proxy in
             switch filmLoadingStatus {
             case .initial:
-                Text("Initial")
+                EmptyView()
             case .loading:
                 ProgressView()
                     .frame(maxWidth: .infinity)
@@ -42,19 +44,39 @@ struct ImageListView: View {
                     self.mainFilmID = films.last?.id
                 }
             case .failure:
-                Text("Failed")
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("최근 사진 불러오기에 실패했습니다.\n사진 라이브러리 권한 설정에 문제가 있을 수 있습니다.")
+                    Link("설정 앱 열기", destination: URL(string: UIApplication.openSettingsURLString)!)
+                        .padding()
+                        .buttonStyle(.borderedProminent)
+                }
+                .padding()
+
             case .empty:
-                Text("Empty : Not Images")
+                Text("최근 1주일 간 찍은 이미지가 없습니다.")
             }
         }
         .padding(.vertical)
         .background(.background.opacity(0.85))
-        .aspectRatio(16.0 / 9.0, contentMode: .fit)
+        .aspectRatio(currentOrientation == .portrait ? 16.0 / 9.0 : 3.0 / 1.0, contentMode: .fit)
         .presentationBackground(.thickMaterial)
-        .onAppear {
+        .task {
             self.filmLoadingStatus = .loading
-            Task {
+            let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+            if authorizationStatus == .notDetermined {
+                PHPhotoLibrary.requestAuthorization(for: .readWrite) { state in
+                    if state == .authorized {
+                        Task {
+                            await fetchCustomAlbumPhotos()
+                        }
+                    } else {
+                        self.filmLoadingStatus = .failure
+                    }
+                }
+            } else if authorizationStatus == .authorized {
                 await fetchCustomAlbumPhotos()
+            } else {
+                self.filmLoadingStatus = .failure
             }
         }
     }

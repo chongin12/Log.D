@@ -22,7 +22,8 @@ struct LogView: View {
             TitleTextField()
             ContentTextEditor()
             FooterView()
-                .padding(.horizontal, 6)
+                .padding(.horizontal, 4)
+                .transition(.identity)
         }
         .padding(.vertical, 16)
         .padding(.horizontal, 12)
@@ -82,14 +83,21 @@ struct LogView: View {
         HStack(spacing: 8) {
             ForEach(self.log.tags.sorted(), id: \.self) { tag in
                 Text(tag)
+                    .padding(8)
+                    .background(
+                        Capsule()
+                            .fill(.background.tertiary)
+                    )
             }
         }
     }
 
     @MainActor 
     private func updateTags() {
-        self.log.isLoadingTags = true
-        self.log.updateTags()
+        withAnimation(.bouncy) {
+            self.log.isLoadingTags = true
+            self.log.updateTags()
+        }
     }
 }
 

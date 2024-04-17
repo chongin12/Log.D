@@ -14,6 +14,9 @@ struct LogListView: View {
     @State private var isFlimShowing: Bool = false
 
     @FocusState private var focusState: LogFocusType?
+
+    let modelContextSave: () -> Void
+
     var searchResultLogs: [Log] {
         self.month
             .logs
@@ -35,6 +38,8 @@ struct LogListView: View {
             }
             if isFlimShowing {
                 ImageListView()
+                    .zIndex(1)
+                    .transition(.move(edge: .bottom))
             }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "일기를 검색하세요")
@@ -46,9 +51,11 @@ struct LogListView: View {
                     Image(systemName: "film.fill")
                 }
                 Button(action: {
-                    let newLog: Log = .emptyData
-                    month.logs.insert(contentsOf: [newLog], at: .zero)
-                    focusState = .title(newLog.id)
+                    withAnimation(.bouncy) {
+                        let newLog: Log = .emptyData
+                        month.logs.insert(contentsOf: [newLog], at: .zero)
+                        focusState = .title(newLog.id)
+                    }
                 }, label: {
                     Image(systemName: "plus")
                 })
@@ -68,19 +75,25 @@ struct LogListView: View {
                 }
             }
         }
+        .animation(.easeInOut, value: self.isFlimShowing)
+        .animation(.easeInOut, value: self.focusState)
     }
 
     @ViewBuilder
     private func ListView() -> some View {
         ScrollView {
-            VStack(spacing: 16) {
+            LazyVStack(spacing: 16) {
                 ForEach(month.sortedLogs) { log in
                     LogView(log: log, focusState: $focusState)
                         .contextMenu {
                             Text("생성 : \(log.createdDate.formatted())")
+                            Divider()
                             Button(role: .destructive, action: {
                                 self.focusState = nil
-                                month.logs.removeAll(where: { $0.id == log.id })
+                                withAnimation {
+                                    month.logs.removeAll(where: { $0.id == log.id })
+                                    modelContextSave()
+                                }
                             }, label: {
                                 Label("삭제", systemImage: "trash.fill")
                             })
@@ -96,7 +109,7 @@ struct LogListView: View {
     @ViewBuilder
     private func SearchResultView() -> some View {
         ScrollView {
-            VStack(spacing: 16) {
+            LazyVStack(spacing: 16) {
                 ForEach(searchResultLogs) { log in
                     LogView(log: log, focusState: $focusState)
                 }
@@ -114,7 +127,7 @@ import SwiftData
 
     let month = try! Year.preview.mainContext.fetch(fetchDescriptor)
     return NavigationStack {
-        LogListView(month: month[0])
+        LogListView(month: month[0], modelContextSave: {})
             .preferredColorScheme(.dark)
             .modelContainer(Year.preview)
     }

@@ -72,11 +72,14 @@ struct YearListView: View {
     private func ListView() -> some View {
         List(years) { year in
             NavigationLink(year.value.description + "년") {
-                MonthListView(year: year)
+                MonthListView(year: year) {
+                    try? self.modelContext.save()
+                }
             }
             .contextMenu {
                 Button(role: .destructive, action: {
                     modelContext.delete(year)
+                    try? self.modelContext.save()
                 }, label: {
                     Label("삭제", systemImage: "trash.fill")
                 })
@@ -87,7 +90,7 @@ struct YearListView: View {
     @ViewBuilder
     private func SearchResultView() -> some View {
         ScrollView {
-            VStack(spacing: 16) {
+            LazyVStack(spacing: 16) {
                 ForEach(searchResultLogs) { log in
                     LogView(log: log, focusState: $focusState)
                 }

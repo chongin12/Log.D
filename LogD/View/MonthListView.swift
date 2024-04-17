@@ -13,6 +13,9 @@ struct MonthListView: View {
     @State private var isPresentingModal: Bool = false
     @State private var searchText: String = ""
     @FocusState private var focusState: LogFocusType?
+
+    let modelContextSave: () -> Void
+
     var searchResultLogs: [Log] {
         self.year
             .months
@@ -32,11 +35,14 @@ struct MonthListView: View {
             if searchText.isEmpty {
                 List(year.sortedMonths) { month in
                     NavigationLink(month.value.description + "월") {
-                        LogListView(month: month)
+                        LogListView(month: month) {
+                            self.modelContextSave()
+                        }
                     }
                     .contextMenu {
                         Button(role: .destructive, action: {
                             year.months.removeAll(where: { $0.id == month.id })
+                            modelContextSave()
                         }, label: {
                             Label("삭제", systemImage: "trash.fill")
                         })
@@ -71,7 +77,7 @@ struct MonthListView: View {
     @ViewBuilder
     private func SearchResultView() -> some View {
         ScrollView {
-            VStack(spacing: 16) {
+            LazyVStack(spacing: 16) {
                 ForEach(searchResultLogs) { log in
                     LogView(log: log, focusState: $focusState)
                 }
@@ -89,7 +95,7 @@ import SwiftData
 
     let years = try! Year.preview.mainContext.fetch(fetchDescriptor)
     return NavigationStack {
-        MonthListView(year: years[0])
+        MonthListView(year: years[0], modelContextSave: {})
             .preferredColorScheme(.dark)
     }
 }
