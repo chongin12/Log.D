@@ -27,6 +27,7 @@
 		6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0292BCE151C00317CD2 /* Film.swift */; };
 		6FF5D0302BCF650A00317CD2 /* DiaryClassifierUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */; };
 		6FF5D0322BCFB5ED00317CD2 /* DiaryClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */; };
+		6FF5D0342BD0062300317CD2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6FF5D0332BD0062300317CD2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		6FF5D0292BCE151C00317CD2 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryClassifierUseCase.swift; sourceTree = "<group>"; };
 		6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DiaryClassifier.mlmodel; sourceTree = "<group>"; };
+		6FF5D0332BD0062300317CD2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				6F1EBB5C2BC8C47500EFFD63 /* Assets.xcassets */,
 				6F1EBB5E2BC8C47500EFFD63 /* LogD.entitlements */,
 				6F1EBB5F2BC8C47500EFFD63 /* Preview Content */,
+				6FF5D0332BD0062300317CD2 /* PrivacyInfo.xcprivacy */,
 			);
 			path = LogD;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FF5D0342BD0062300317CD2 /* PrivacyInfo.xcprivacy in Resources */,
 				6F1EBB612BC8C47500EFFD63 /* Preview Assets.xcassets in Resources */,
 				6F1EBB5D2BC8C47500EFFD63 /* Assets.xcassets in Resources */,
 			);
