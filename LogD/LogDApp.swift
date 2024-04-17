@@ -23,6 +23,9 @@ struct LogDApp: App {
         WindowGroup {
             RootView()
                 .modelContainer(modelContainer)
+                .task {
+                    _ = await DiaryClassifierUseCase.shared.predict(for: "어제 막걸리를 마셔서 그런지 모르겠지만 아침에 너무 피곤하고 머리가 멍해서 계속 잠만 잤다. 일어나니 11시에 가까워서 ....... 후다닥 개발을 조금 했지만 할일이 많다.")
+                }
         }
     }
 
