@@ -56,7 +56,6 @@ struct LogView: View {
     @ViewBuilder
     private func ContentTextField() -> some View {
         TextField("일기 내용", text: $log.content, axis: .vertical)
-            .lineLimit(1...)
             .focused($focusState, equals: .content(log.id))
     }
 
