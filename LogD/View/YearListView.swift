@@ -52,6 +52,20 @@ struct YearListView: View {
                 })
             }
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                if case let .title(id) = self.focusState {
+                    Button("다음") {
+                        self.focusState = .content(id)
+                    }
+                } else {
+                    Button("완료") {
+                        self.focusState = nil
+                    }
+                }
+            }
+        }
         .fullScreenCover(isPresented: $isPresentingModal, onDismiss: {
 
         }, content: {

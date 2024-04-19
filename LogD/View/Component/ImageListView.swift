@@ -58,23 +58,7 @@ struct ImageListView: View {
         .aspectRatio(16.0 / 9.0, contentMode: .fit)
         .presentationBackground(.thickMaterial)
         .task {
-            self.filmLoadingStatus = .loading
-            let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-            if authorizationStatus == .notDetermined {
-                PHPhotoLibrary.requestAuthorization(for: .readWrite) { state in
-                    if state == .authorized {
-                        Task {
-                            await fetchCustomAlbumPhotos()
-                        }
-                    } else {
-                        self.filmLoadingStatus = .failure
-                    }
-                }
-            } else if authorizationStatus == .authorized {
-                await fetchCustomAlbumPhotos()
-            } else {
-                self.filmLoadingStatus = .failure
-            }
+            await self.requestAuthorizationAndLoadFilms()
         }
     }
 
@@ -113,7 +97,7 @@ struct ImageListView: View {
         }
     }
 
-    private func fetchCustomAlbumPhotos() async {
+    private func fetchCustomAlbumPhotos() async -> [Film] {
         var photoAssets = PHFetchResult<PHAsset>()
         let fetchOptions = PHFetchOptions()
 
@@ -128,10 +112,6 @@ struct ImageListView: View {
         photoAssets = PHAsset.fetchAssets(with: fetchOptions)
 
         var films = [Film]()
-
-        defer {
-            self.imageLoadSuccess(films: films)
-        }
 
         let imageManager = PHCachingImageManager()
         photoAssets.enumerateObjects { asset, count, stop in
@@ -153,13 +133,29 @@ struct ImageListView: View {
                 }
             )
         }
+
+        return films
     }
 
-    private func imageLoadSuccess(films: [Film]){
-        if films.isEmpty {
-            self.filmLoadingStatus = .empty
-        } else {
+    private func requestAuthorizationAndLoadFilms() async {
+        self.filmLoadingStatus = .loading
+        let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        if authorizationStatus == .notDetermined {
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { state in
+                if state == .authorized {
+                    Task {
+                        let films = await fetchCustomAlbumPhotos()
+                        self.filmLoadingStatus = .success(films)
+                    }
+                } else {
+                    self.filmLoadingStatus = .failure
+                }
+            }
+        } else if authorizationStatus == .authorized {
+            let films = await fetchCustomAlbumPhotos()
             self.filmLoadingStatus = .success(films)
+        } else {
+            self.filmLoadingStatus = .failure
         }
     }
 

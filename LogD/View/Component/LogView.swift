@@ -20,13 +20,12 @@ struct LogView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             TitleTextField()
-            ContentTextEditor()
+            ContentTextField()
             FooterView()
-                .padding(.horizontal, 4)
                 .transition(.identity)
         }
         .padding(.vertical, 16)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 16)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(.background.secondary)
@@ -52,19 +51,13 @@ struct LogView: View {
             .submitLabel(.next)
             .focused($focusState, equals: .title(log.id))
             .font(.title.bold())
-            .padding(.horizontal, 4)
     }
 
     @ViewBuilder
-    private func ContentTextEditor() -> some View {
-        TextEditor(text: $log.content)
+    private func ContentTextField() -> some View {
+        TextField("일기 내용", text: $log.content, axis: .vertical)
+            .lineLimit(1...)
             .focused($focusState, equals: .content(log.id))
-            .scrollIndicators(.hidden)
-            .scrollDisabled(true)
-            .scrollContentBackground(.hidden)
-            .background(.clear)
-            .frame(minHeight: 32, maxHeight: .infinity)
-            .fixedSize(horizontal: false, vertical: true)
     }
 
     @ViewBuilder

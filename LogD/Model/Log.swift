@@ -42,7 +42,7 @@ extension Log {
 //        try! await Task.sleep(nanoseconds: 1_000_000_000)
 //        return ["tag\(Int.random(in: 0..<100))", "tag2"]
         guard let content else { return [] }
-        return await DiaryClassifierUseCase.shared.predictTags(for: content)
+        return await DiaryClassifierManager.shared.predictTags(for: content)
     }
 }
 

@@ -25,9 +25,10 @@
 		6FC1FE0E2BCCB129003E674F /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0D2BCCB129003E674F /* ImageListView.swift */; };
 		6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */; };
 		6FF5D02A2BCE151C00317CD2 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0292BCE151C00317CD2 /* Film.swift */; };
-		6FF5D0302BCF650A00317CD2 /* DiaryClassifierUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */; };
+		6FF5D0302BCF650A00317CD2 /* DiaryClassifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D02F2BCF650A00317CD2 /* DiaryClassifierManager.swift */; };
 		6FF5D0322BCFB5ED00317CD2 /* DiaryClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */; };
 		6FF5D0342BD0062300317CD2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6FF5D0332BD0062300317CD2 /* PrivacyInfo.xcprivacy */; };
+		6FF5D0362BD0A7F400317CD2 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5D0352BD0A7F400317CD2 /* HapticManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,9 +53,10 @@
 		6FC1FE0F2BCCC307003E674F /* LogFocusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFocusType.swift; sourceTree = "<group>"; };
 		6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FF5D0292BCE151C00317CD2 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
-		6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryClassifierUseCase.swift; sourceTree = "<group>"; };
+		6FF5D02F2BCF650A00317CD2 /* DiaryClassifierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryClassifierManager.swift; sourceTree = "<group>"; };
 		6FF5D0312BCFB5ED00317CD2 /* DiaryClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DiaryClassifier.mlmodel; sourceTree = "<group>"; };
 		6FF5D0332BD0062300317CD2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		6FF5D0352BD0A7F400317CD2 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +89,7 @@
 		6F1EBB572BC8C47300EFFD63 /* LogD */ = {
 			isa = PBXGroup;
 			children = (
-				6FF5D02E2BCF64E100317CD2 /* UseCase */,
+				6FF5D02E2BCF64E100317CD2 /* Manager */,
 				6FF5D02B2BCF648400317CD2 /* MLModel */,
 				6FF5CFFE2BCCCE7D00317CD2 /* Info.plist */,
 				6F1EBB582BC8C47300EFFD63 /* LogDApp.swift */,
@@ -170,12 +172,13 @@
 			path = MLModel;
 			sourceTree = "<group>";
 		};
-		6FF5D02E2BCF64E100317CD2 /* UseCase */ = {
+		6FF5D02E2BCF64E100317CD2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				6FF5D02F2BCF650A00317CD2 /* DiaryClassifierUseCase.swift */,
+				6FF5D02F2BCF650A00317CD2 /* DiaryClassifierManager.swift */,
+				6FF5D0352BD0A7F400317CD2 /* HapticManager.swift */,
 			);
-			path = UseCase;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,7 +258,8 @@
 				6F1EBB592BC8C47300EFFD63 /* LogDApp.swift in Sources */,
 				6F1EBB702BC8C5B500EFFD63 /* Log.swift in Sources */,
 				6F1EBB792BC8DEAF00EFFD63 /* Year.swift in Sources */,
-				6FF5D0302BCF650A00317CD2 /* DiaryClassifierUseCase.swift in Sources */,
+				6FF5D0362BD0A7F400317CD2 /* HapticManager.swift in Sources */,
+				6FF5D0302BCF650A00317CD2 /* DiaryClassifierManager.swift in Sources */,
 				6F1EBB6A2BC8C51A00EFFD63 /* YearListView.swift in Sources */,
 				6FC1FE0C2BCAA858003E674F /* LogView.swift in Sources */,
 				6FC1FE102BCCC307003E674F /* LogFocusType.swift in Sources */,
@@ -416,7 +420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = blog.mosu.LogD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -458,7 +462,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = blog.mosu.LogD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

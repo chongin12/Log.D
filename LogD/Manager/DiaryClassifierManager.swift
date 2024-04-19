@@ -1,5 +1,5 @@
 //
-//  DiaryClassifierUseCase.swift
+//  DiaryClassifierManager.swift
 //  LogD
 //
 //  Created by 정종인 on 4/17/24.
@@ -9,8 +9,8 @@ import Foundation
 import CoreML
 import NaturalLanguage
 
-class DiaryClassifierUseCase {
-    public static let shared = DiaryClassifierUseCase()
+class DiaryClassifierManager {
+    public static let shared = DiaryClassifierManager()
     private let THRESHOLD = 0.08 // 확률이 8% 이상이면 태그로 선정.
     private init() {
     }
